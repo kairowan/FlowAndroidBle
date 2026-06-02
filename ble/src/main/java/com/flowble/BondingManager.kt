@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import com.flowble.exception.BleException
 import com.flowble.internal.getBluetoothDeviceExtra
+import com.flowble.internal.registerNotExportedReceiver
 import com.flowble.model.BondState
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -95,7 +96,7 @@ class BondingManager(private val context: Context) {
         }
 
         val filter = IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED)
-        context.registerReceiver(receiver, filter)
+        context.registerNotExportedReceiver(receiver, filter)
 
         // Emit current state
         trySend(BondState.fromAndroid(device.bondState))

@@ -17,6 +17,7 @@ import com.flowble.internal.allPermissionGroupsGranted
 import com.flowble.internal.flattenPermissionGroups
 import com.flowble.internal.recommendedConnectPermissionGroups
 import com.flowble.internal.recommendedScanPermissionGroups
+import com.flowble.internal.registerNotExportedReceiver
 import com.flowble.internal.requiresLocationServicesForScan
 import com.flowble.model.BleAdapterState
 import com.flowble.model.BleState
@@ -61,7 +62,7 @@ class BluetoothStateMonitor(private val context: Context) {
             addAction(LocationManager.MODE_CHANGED_ACTION)
         }
 
-        context.registerReceiver(receiver, filter)
+        context.registerNotExportedReceiver(receiver, filter)
         trySend(getCurrentState())
 
         awaitClose {
@@ -87,7 +88,7 @@ class BluetoothStateMonitor(private val context: Context) {
         }
 
         val filter = IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
-        context.registerReceiver(receiver, filter)
+        context.registerNotExportedReceiver(receiver, filter)
         trySend(getAdapterState())
 
         awaitClose {
@@ -129,7 +130,7 @@ class BluetoothStateMonitor(private val context: Context) {
         }
 
         val filter = IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
-        context.registerReceiver(receiver, filter)
+        context.registerNotExportedReceiver(receiver, filter)
         trySend(adapter?.isEnabled == true)
 
         awaitClose {
@@ -152,7 +153,7 @@ class BluetoothStateMonitor(private val context: Context) {
         }
 
         val filter = IntentFilter(LocationManager.MODE_CHANGED_ACTION)
-        context.registerReceiver(receiver, filter)
+        context.registerNotExportedReceiver(receiver, filter)
         trySend(isLocationEnabled())
 
         awaitClose {
@@ -269,8 +270,7 @@ class BluetoothStateMonitor(private val context: Context) {
         }
 
         return try {
-            @Suppress("DEPRECATION")
-            val packageInfo = packageManager.getPackageInfo(context.packageName, PackageManager.GET_PERMISSIONS)
+            val packageInfo = packageInfoWithRequestedPermissions()
             val requestedPermissions = packageInfo.requestedPermissions ?: return false
             val requestedPermissionFlags = packageInfo.requestedPermissionsFlags ?: return false
 
@@ -281,6 +281,18 @@ class BluetoothStateMonitor(private val context: Context) {
             } ?: false
         } catch (_: PackageManager.NameNotFoundException) {
             false
+        }
+    }
+
+    private fun packageInfoWithRequestedPermissions(): PackageInfo {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            packageManager.getPackageInfo(
+                context.packageName,
+                PackageManager.PackageInfoFlags.of(PackageManager.GET_PERMISSIONS.toLong())
+            )
+        } else {
+            @Suppress("DEPRECATION")
+            packageManager.getPackageInfo(context.packageName, PackageManager.GET_PERMISSIONS)
         }
     }
 }

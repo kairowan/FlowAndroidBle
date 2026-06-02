@@ -11,7 +11,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
-import androidx.core.content.ContextCompat
 import com.flowble.exception.AlreadyConnectedException
 import com.flowble.exception.BleException
 import com.flowble.exception.BleGattCallbackTimeoutException
@@ -24,6 +23,7 @@ import com.flowble.internal.DeviceConnectionRegistry
 import com.flowble.internal.FlowBleDeviceImpl
 import com.flowble.internal.GattCallbackRouter
 import com.flowble.internal.getOrPutConcurrent
+import com.flowble.internal.registerNotExportedReceiver
 import com.flowble.model.BleScanResult
 import com.flowble.model.BleAdapterState
 import com.flowble.model.BleState
@@ -614,12 +614,7 @@ class FlowBleClient internal constructor(
             val filter = IntentFilter().apply {
                 actions.forEach(::addAction)
             }
-            ContextCompat.registerReceiver(
-                appContext,
-                receiver,
-                filter,
-                ContextCompat.RECEIVER_NOT_EXPORTED
-            )
+            appContext.registerNotExportedReceiver(receiver, filter)
             ReceiverRegistration {
                 appContext.unregisterReceiver(receiver)
             }

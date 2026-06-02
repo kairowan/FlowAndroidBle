@@ -9,6 +9,7 @@ import android.bluetooth.le.ScanResult
 import android.bluetooth.le.ScanSettings
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import com.flowble.exception.BleScanException
 import com.flowble.exception.ScanFailedException
 import com.flowble.model.BleScanResult
@@ -130,12 +131,9 @@ class BleScanner internal constructor(private val context: Context) {
          * This is a lightweight bridge for apps that use platform background scans but still want
          * FlowAndroidBle's richer [BleScanResult] model.
          */
-        @Suppress("DEPRECATION")
         fun getBackgroundScanResults(intent: Intent): List<BleScanResult> {
             val callbackType = getBackgroundScanCallbackType(intent)
-            val results = intent.getParcelableArrayListExtra<ScanResult>(
-                EXTRA_LIST_SCAN_RESULT
-            ).orEmpty()
+            val results = intent.getScanResultsExtra().orEmpty()
             return results.map { scanResult ->
                 val parsed = BleScanResult.fromAndroid(scanResult)
                 if (parsed.callbackType == null && callbackType != null) {
@@ -167,6 +165,15 @@ class BleScanner internal constructor(private val context: Context) {
 
             val errorCode = intent.getIntExtra(EXTRA_ERROR_CODE, -1)
             return errorCode.takeIf { it >= 0 }?.let(::ScanFailedException)
+        }
+
+        private fun Intent.getScanResultsExtra(): ArrayList<ScanResult>? {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                getParcelableArrayListExtra(EXTRA_LIST_SCAN_RESULT, ScanResult::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                getParcelableArrayListExtra(EXTRA_LIST_SCAN_RESULT)
+            }
         }
     }
 }
