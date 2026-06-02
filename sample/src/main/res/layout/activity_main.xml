@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/titleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_text"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline" />
+
+        <TextView
+            android:id="@+id/descriptionView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/description_text"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1" />
+
+        <TextView
+            android:id="@+id/summaryView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#FFEFEFEF"
+            android:padding="12dp"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1" />
+
+        <TextView
+            android:id="@+id/bondedDevicesLabelView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/bonded_devices_label"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <LinearLayout
+            android:id="@+id/bondedDevicesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/connectedPeripheralsLabelView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/connected_peripherals_label"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <LinearLayout
+            android:id="@+id/connectedPeripheralsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/connectionLabelView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/connection_label"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <EditText
+            android:id="@+id/deviceAddressInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:digits="0123456789ABCDEFabcdef:"
+            android:hint="@string/device_address_hint"
+            android:importantForAutofill="no"
+            android:inputType="textCapCharacters|textNoSuggestions"
+            android:maxLength="17"
+            android:singleLine="true"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            android:typeface="monospace" />
+
+        <TextView
+            android:id="@+id/connectionStatusView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#FFF7F7F7"
+            android:padding="12dp"
+            android:text="@string/connection_idle_status"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:typeface="monospace" />
+
+        <TextView
+            android:id="@+id/connectionDetailsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#FFF7F7F7"
+            android:padding="12dp"
+            android:text="@string/connection_idle_details"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:typeface="monospace" />
+
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/connectButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/action_connect" />
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/disconnectButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="@string/action_disconnect" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/autoReconnectLabelView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/auto_reconnect_label"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <TextView
+            android:id="@+id/autoReconnectStatusView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#FFF7F7F7"
+            android:padding="12dp"
+            android:text="@string/auto_reconnect_idle_status"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:typeface="monospace" />
+
+        <TextView
+            android:id="@+id/autoReconnectDetailsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#FFF7F7F7"
+            android:padding="12dp"
+            android:text="@string/auto_reconnect_idle_details"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:typeface="monospace" />
+
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/startAutoReconnectButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/action_start_auto_reconnect" />
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/stopAutoReconnectButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="@string/action_stop_auto_reconnect" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/refreshButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/action_refresh" />
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/permissionButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="@string/action_permissions" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/startScanButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/action_start_scan" />
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/stopScanButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="@string/action_stop_scan" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/recentScanResultsLabelView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/recent_scan_results_label"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <LinearLayout
+            android:id="@+id/recentScanResultsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/logLabelView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/log_label"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <TextView
+            android:id="@+id/logView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#FFF7F7F7"
+            android:padding="12dp"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:typeface="monospace" />
+    </LinearLayout>
+</ScrollView>
